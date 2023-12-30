@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import classes from './Mainpage.module.css'
 
 const Mainpage = () => {
     const [url, setUrl] = useState('');
@@ -35,25 +36,39 @@ const Mainpage = () => {
 
     return (
         <>
-            <div>
-                <h1>Wikipedia Loop Checker</h1>
-                <label>
-                    Wikipedia URL:
-                    <input type="text" value={url} onChange={(e) => setUrl(e.target.value)} placeholder='Enter Wikipedia URL' />
-                </label>
-                <button onClick={handleSubmit} disabled={loading}>
-                    {loading ? 'Checking Loop...' : 'Check Loop'}
-                </button>
+            <div className={classes['container']}>
+                <div className={classes['main']}>
+                    <h1 className={classes['heading']}>Wikipedia Loop Checker</h1>
+                    <div className={classes['inputdiv']}>
+                        <label>
+                            Wikipedia URL:
+                        </label>
+                        <input type="text" value={url} onChange={(e) => setUrl(e.target.value)} placeholder='Enter Wikipedia URL' />
+                    </div>
+                    <button onClick={handleSubmit} disabled={loading}>
+                        {loading ? 'Checking Loop...' : 'Check Loop'}
+                    </button>
+                </div>
 
                 {valid && (
-                    <div>
-                        <h2>Results</h2>
-                        <p>Number of requests: {result.steps}</p>
-                        <ol>
-                            {result.visitedPages.map((link, index) => (
-                                <li key={index}>{link}</li>
-                            ))}
-                        </ol>
+                    <div className={classes.resultsContainer}>
+                        <p className={classes.requesttext}>Number of requests: {result.steps}</p>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Sr No.</th>
+                                    <th>Page</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {result.visitedPages.map((link, index) => (
+                                    <tr key={index}>
+                                        <td>{index + 1}</td>
+                                        <td>{link}</td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
                     </div>
                 )}
                 {valid === false && (
