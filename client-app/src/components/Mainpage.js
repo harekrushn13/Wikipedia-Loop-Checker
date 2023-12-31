@@ -21,7 +21,7 @@ const Mainpage = () => {
         });
 
         const data = await response.json();
-        console.log(data);
+        // console.log(data);
 
         if (data.success === 1) {
             setValid(true);
@@ -36,14 +36,20 @@ const Mainpage = () => {
 
     return (
         <>
-            <div className={classes['container']}>
-                <div className={classes['main']}>
-                    <h1 className={classes['heading']}>Wikipedia Loop Checker</h1>
-                    <div className={classes['inputdiv']}>
+            <div className={classes.container}>
+                <div className={classes.main}>
+                    <h1 className={classes.heading}>Wikipedia Loop Checker</h1>
+                    <div className={classes.inputdiv}>
                         <label>
                             Wikipedia URL:
                         </label>
-                        <input type="text" value={url} onChange={(e) => setUrl(e.target.value)} placeholder='Enter Wikipedia URL' />
+                        <input
+                            type="text"
+                            value={url}
+                            onChange={(e) => setUrl(e.target.value)}
+                            placeholder='Enter Wikipedia URL'
+                            onFocus={() => setValid(null)}
+                        />
                     </div>
                     <button onClick={handleSubmit} disabled={loading}>
                         {loading ? 'Checking Loop...' : 'Check Loop'}
@@ -52,7 +58,11 @@ const Mainpage = () => {
 
                 {valid && (
                     <div className={classes.resultsContainer}>
-                        <p className={classes.requesttext}>Number of requests: {result.steps}</p>
+                        <p className={classes.requesttext}>Total Requests :
+                            <span className={classes.requestNumber}>
+                                {result.count}
+                            </span>
+                        </p>
                         <table>
                             <thead>
                                 <tr>
@@ -72,9 +82,9 @@ const Mainpage = () => {
                     </div>
                 )}
                 {valid === false && (
-                    <div>
-                        <h2>Error</h2>
-                        <p>{result?.message}</p>
+                    <div className={classes.errorContainer}>
+                        <div className={classes.errorHeading}>Error : </div>
+                        <p className={classes.errorMessage}>{result?.message}</p>
                     </div>
                 )}
             </div>

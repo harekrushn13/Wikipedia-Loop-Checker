@@ -20,7 +20,7 @@ app.post('/wikipedialoopchecker', async (req, res) => {
             success: 0, message: 'Please enter a valid wikipedia URL !!'
         });
     } else {
-        const result = await getWikiLoop(url);
+        const result = await checkLoop(url);
         console.log(result);
 
         res.json(result);
@@ -28,10 +28,10 @@ app.post('/wikipedialoopchecker', async (req, res) => {
 
 });
 
-async function getWikiLoop(url) {
+async function checkLoop(url) {
     const visitedPages = [];
     let currentUrl = url;
-    let steps = 0;
+    let count = 0;
 
     while (currentUrl.toLowerCase() !== 'https://en.wikipedia.org/wiki/philosophy') {
         if (visitedPages.includes(currentUrl)) {
@@ -48,17 +48,17 @@ async function getWikiLoop(url) {
 
         if (!currentUrl) {
             return {
-                success: 0, message: "No Valid URL"
+                success: 0, message: "No Valid URL find in Loop"
             }
         }
 
-        steps++;
+        count++;
     }
 
     visitedPages.push(currentUrl);
 
     return {
-        steps,
+        count,
         visitedPages,
         success: 1,
         message: "Successfully visited Philosophy Page"
