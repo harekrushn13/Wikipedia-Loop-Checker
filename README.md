@@ -62,3 +62,11 @@ cd wikipedia-loop-checker
 Enter a Wikipedia URL in the input field.
 Click the "Check Loop" button to see the results.
 Explore the number of requests and the list of visited pages.
+
+## Screenshots
+
+### Home Page
+![Home Page](https://github.com/harekrushn13/Wikipedia-Loop-Checker/assets/115085962/ae0a3fa5-9b34-429a-9d31-f7311e06aead)
+
+### Results Page
+![Result Page](https://github.com/harekrushn13/Wikipedia-Loop-Checker/assets/115085962/c72d57a8-6c70-40f3-8aed-7b5a93ad0b8a)
