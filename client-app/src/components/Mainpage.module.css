@@ -38,22 +38,51 @@ input {
     border-radius: 5px;
 }
 
-button {
-    background-color: #4caf50;
-    color: white;
-    padding: 10px 15px;
-    border: none;
-    border-radius: 5px;
+.checkButton {
+    background-color: #28a745;
+    color: #ffffff;
+    border: 1px solid #28a745;
+    padding: 8px 16px;
     cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s, color 0.3s, border 0.3s;
 }
 
-button:disabled {
+.checkButton:hover {
+    background-color: #218838;
+    border: 1px solid #218838;
+}
+
+.checkButton:disabled {
     background-color: #ddd;
     cursor: not-allowed;
 }
 
+.clearButton {
+    background-color: #ffffff;
+    color: #be2f1c;
+    border: 1px solid #be2f1c;
+    padding: 8px 16px;
+    cursor: pointer;
+    font-size: 14px;
+    margin-left: 10px;
+    transition: background-color 0.3s, color 0.3s, border 0.3s;
+}
+
+.clearButton:hover {
+    background-color: #be2f1c;
+    color: #ffffff;
+}
+
 .results-container {
     margin-top: 20px;
+}
+
+.requestContainer {
+    margin-top: 20px;
+    border: #141E61 1px solid;
+    background-color: #fff;
+
 }
 
 .requesttext {
