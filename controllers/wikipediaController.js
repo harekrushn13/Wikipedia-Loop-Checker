@@ -49,8 +49,9 @@ async function checkloop(req, res) {
             if (firstLink) {
                 if (visitedPages.includes(firstLink)) {
                     visitedPages.push(firstLink);
+                    errorMessage = 'Loop Detected !! Page ' + firstLink.replace('https://en.wikipedia.org/wiki/', '') + ' Already visited !!'
                     res.json({
-                        success: 0, message: "Loop Detected !! A page that is Already visited !", visitedPages
+                        success: 0, message: errorMessage, visitedPages
                     })
                     return;
                 } else {
