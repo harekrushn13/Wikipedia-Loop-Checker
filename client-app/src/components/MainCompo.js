@@ -7,6 +7,7 @@ const MainCompo = () => {
     const [result, setResult] = useState(null);
     const [loading, setLoading] = useState(false);
 
+    // Define validation schema for the form using Yup
     const validationSchema = Yup.object({
         url: Yup.string()
             .matches(
@@ -16,6 +17,7 @@ const MainCompo = () => {
             .required('Wikipedia URL is required'),
     });
 
+    // Formik hook to handle form state, validation, and submission
     const formik = useFormik({
         initialValues: {
             url: '',
@@ -25,6 +27,7 @@ const MainCompo = () => {
             setLoading(true);
             setResult(null);
 
+            // Make a POST request to the server for Wikipedia loop check
             const response = await fetch(`http://localhost:5000/checkloop`, {
                 method: "POST",
                 headers: {
@@ -42,7 +45,7 @@ const MainCompo = () => {
         }
     })
 
-
+    // Function to handle clearing the form and result
     const handleClear = () => {
         formik.resetForm();
         setResult(null);
@@ -57,6 +60,7 @@ const MainCompo = () => {
                         Wikipedia Loop Checker
                     </h1>
 
+                    {/* Form for input */}
                     <form onSubmit={formik.handleSubmit}>
                         <div className={classes.inputContainor}>
                             <div className={classes.inputdiv}>
@@ -90,12 +94,14 @@ const MainCompo = () => {
                     </form>
                 </div>
 
+                {/* Loading indicator */}
                 {loading && (
                     <div>
                         <h1>Loading ...</h1>
                     </div>
                 )}
 
+                {/* Display the result if available */}
                 {result && (
                     <div className={classes.resultsContainer}>
                         {result.success === 1 ? (
