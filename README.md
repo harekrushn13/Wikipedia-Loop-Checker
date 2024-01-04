@@ -39,14 +39,14 @@ cd wikipedia-loop-checker
     ```
     - Install frontend dependencies
     ```bash
-    cd client
+    cd client-app
     npm install
     ```
 
 3. Start the development servers:
     - Start frontend server
    ```bash
-    cd client
+    cd client-app
     npm start
    ```
 
