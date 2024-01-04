@@ -44,19 +44,20 @@ cd wikipedia-loop-checker
     ```
 
 3. Start the development servers:
+   - Start backend server
+    ```bash
+    cd
+    npm start
+    ```
+    
     - Start frontend server
    ```bash
     cd client-app
     npm start
    ```
+    
 
-    - Start backend server
-    ```bash
-    cd ../server
-    npm start
-    ```
-
-4. Open your browser and go to http://localhost:3000 to use the application.
+5. Open your browser and go to http://localhost:3000 to use the application.
 
 ## Usage
 Enter a Wikipedia URL in the input field.
