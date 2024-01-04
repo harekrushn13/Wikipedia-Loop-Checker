@@ -46,7 +46,6 @@ cd wikipedia-loop-checker
 3. Start the development servers:
    - Start backend server
     ```bash
-    cd
     npm start
     ```
     
