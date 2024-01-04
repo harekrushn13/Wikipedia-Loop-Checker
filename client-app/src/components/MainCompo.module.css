@@ -19,10 +19,13 @@ body {
     color: #141E61;
 }
 
+.inputContainor {
+    margin-bottom: 5%;
+}
+
 .inputdiv {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 5%;
     font-weight: bold;
     align-items: center;
 }
@@ -33,10 +36,22 @@ label {
 
 input {
     width: 70%;
-    padding: 8px;
     box-sizing: border-box;
+    padding: 8px;
     border-radius: 5px;
 }
+
+.errorInput {
+    border: 1px solid #f00;
+}
+
+.error {
+    color: #f00;
+    margin-top: 5px;
+    font-size: 10px;
+    font-weight: 500;
+}
+
 
 .checkButton {
     background-color: #28a745;
@@ -116,6 +131,10 @@ td {
 th {
     background-color: #141E61;
     color: white;
+}
+
+.pagelink {
+    text-decoration: none;
 }
 
 .errorContainer {

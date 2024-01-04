@@ -11,16 +11,17 @@ async function checkloop(req, res) {
 
     const visitedPages = [];
     let count = 0;
+    let currentUrl = url;
 
-    while (url !== 'https://en.wikipedia.org/wiki/Philosophy') {
-        if (visitedPages.includes(url)) {
-            res.json({
-                success: 0, message: "Loop Detected !! A page that is already visited !"
-            })
-            return;
+    while (currentUrl !== 'https://en.wikipedia.org/wiki/Philosophy') {
+        const pageData = await fetch(currentUrl);
+
+        if (!pageData.ok) {
+            return res.json({
+                success: 0, message: 'Please enter a valid wikipedia URL !!'
+            });
+
         }
-
-        const pageData = await fetch(url);
         const pageContent = await pageData.text();
 
         const $ = cheerio.load(pageContent);
@@ -39,18 +40,31 @@ async function checkloop(req, res) {
                     console.log(href);
 
                     if (href) {
-                        firstLink = `https://en.wikipedia.org${href}`;
-                        return;
+                        firstLink = 'https://en.wikipedia.org' + href;
+                        break;
                     }
                 }
             }
-        }
 
-        if (firstLink) {
-            url = firstLink;
+            if (firstLink) {
+                if (visitedPages.includes(firstLink)) {
+                    visitedPages.push(firstLink);
+                    res.json({
+                        success: 0, message: "Loop Detected !! A page that is Already visited !", visitedPages
+                    })
+                    return;
+                } else {
+                    currentUrl = firstLink;
+                    visitedPages.push(currentUrl);
+                }
+                break;
+            }
         }
-
-        visitedPages.push(url);
+        if (visitedPages.length == 0) {
+            return res.json({
+                success: 0, message: 'Unable to reach Philosophy page !!'
+            });
+        }
 
         count++;
     }

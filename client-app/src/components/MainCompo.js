@@ -1,15 +1,26 @@
 import React, { useState } from 'react'
 import { useFormik } from 'formik';
+import * as Yup from 'yup';
 import classes from './MainCompo.module.css'
 
 const MainCompo = () => {
     const [result, setResult] = useState(null);
     const [loading, setLoading] = useState(false);
 
+    const validationSchema = Yup.object({
+        url: Yup.string()
+            .matches(
+                /^(https:\/\/en.wikipedia.org\/wiki\/)/,
+                'Please enter a valid Wikipedia URL'
+            )
+            .required('Wikipedia URL is required'),
+    });
+
     const formik = useFormik({
         initialValues: {
             url: '',
         },
+        validationSchema: validationSchema,
         onSubmit: async (values) => {
             setLoading(true);
             setResult(null);
@@ -37,6 +48,7 @@ const MainCompo = () => {
         setResult(null);
     };
 
+
     return (
         <>
             <div className={classes.container}>
@@ -46,22 +58,33 @@ const MainCompo = () => {
                     </h1>
 
                     <form onSubmit={formik.handleSubmit}>
-                        <div className={classes.inputdiv}>
-                            <label htmlFor="url">Wikipedia URL:</label>
-                            <input
-                                type="text"
-                                name="url"
-                                placeholder="Enter Wikipedia URL"
-                                disabled={loading}
-                                onChange={formik.handleChange}
-                                onBlur={formik.handleBlur}
-                                value={formik.values.url}
-                            />
+                        <div className={classes.inputContainor}>
+                            <div className={classes.inputdiv}>
+                                <label htmlFor="url">Wikipedia URL:</label>
+                                <input
+                                    type="text"
+                                    name="url"
+                                    placeholder="Enter Wikipedia URL"
+                                    disabled={loading}
+                                    onChange={formik.handleChange}
+                                    onBlur={formik.handleBlur}
+                                    value={formik.values.url}
+                                    className={
+                                        formik.errors.url && formik.touched.url
+                                            ? classes.errorInput
+                                            : ''
+                                    }
+                                />
+                            </div>
+                            {formik.errors.url && formik.touched.url && (
+                                <div className={classes.error}>{formik.errors.url}</div>
+                            )}
                         </div>
+
                         <button type="submit" disabled={loading} className={classes.checkButton}>
                             {loading ? 'Checking ...' : 'Submit'}
                         </button>
-                        <button type="button" onClick={handleClear} className={classes.clearButton}>
+                        <button type="button" disabled={loading} onClick={handleClear} className={classes.clearButton}>
                             Clear
                         </button>
                     </form>
@@ -88,7 +111,6 @@ const MainCompo = () => {
                         ) : (
 
                             <div className={classes.errorContainer}>
-                                <div className={classes.errorHeading}>Error : </div>
                                 <p className={classes.errorMessage}>{result?.message}</p>
                             </div>
                         )}
@@ -105,7 +127,7 @@ const MainCompo = () => {
                                     {result.visitedPages.map((link, index) => (
                                         <tr key={index}>
                                             <td>{index + 1}</td>
-                                            <td>{link}</td>
+                                            <td><a href={link} className={classes.pagelink}>{link}</a></td>
                                         </tr>
                                     ))}
                                 </tbody>
