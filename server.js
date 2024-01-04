@@ -11,6 +11,7 @@ const PORT = process.env.PORT;
 app.use(express.json());
 app.use(cors());
 
+// Use the 'wikipediaRoute' for requests to the '/checkloop'
 app.use('/checkloop', wikipediaRoute);
 
 // Start the server and listen on the specified port
